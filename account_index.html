@@ -79,7 +79,7 @@ function getValue() {
 
   });*/
 
- console.log("CoinbaseAddress var = " + coinbaseAddress)
+  alert("CoinbaseAddress var = " + coinbaseAddress);
   web3.eth.getBalance( coinbaseAddress, function(error,result){
     if(!error)
       document.getElementById('storedData').innerHTML=result();
