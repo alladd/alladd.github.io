@@ -79,8 +79,13 @@ function getValue() {
 
   });*/
 
-  web3.eth.getBalance( coinbaseAddress, function(e,r){
-    document.getElementById('storedData').innerHTML=r.toNumber();
+ console.log("CoinbaseAddress var = " + coinbaseAddress)
+  web3.eth.getBalance( coinbaseAddress, function(error,result){
+    if(!error)
+      document.getElementById('storedData').innerHTML=result();
+    else {
+        console.error(error);
+    }
   });
 
 
