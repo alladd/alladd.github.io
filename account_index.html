@@ -63,7 +63,10 @@ function startApp() {
   //document.getElementById('contractAddr').innerHTML = getLink(contractAddress);
   web3.eth.getAccounts(function(e,r){
     document.getElementById('accountAddr').innerHTML = getLink(r);
-    coinbaseAddress = web3.eth.coinbase;
+  });
+
+  web3.eth.getCoinbase(function(e,r){
+    coinbaseAddress = r;
   });
 
   getValue();
