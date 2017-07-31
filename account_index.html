@@ -5,8 +5,7 @@
 <script type="text/javascript">
 
 
-     var web3 = new Web3();
-     web3.setProvider(new web3.providers.HttpProvider());
+    window.web3 = new Web3(web3.currentProvider);
 
      function watchBalance() {
          var coinbase = web3.eth.coinbase;
