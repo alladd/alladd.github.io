@@ -20,7 +20,6 @@
     <button onclick="getValue()">새로고침</button> (현재블록: <span id="lastBlock"></span>)</li>
   <li><input id="newValue" type="text"><button onclick="setValue()">새 값으로 저장하기</button>
       <div id="result"></div></li>
-  <li>새 값을 저장한 후 팬딩 트랜잭션이 블록에 포함되면 자동으로 페이지가 업데이트될 것입니다.</li>
 </ul>
 
 <!--
@@ -36,10 +35,12 @@ HTML 소스<br>
 <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
 <!-- script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script -->
 <script>
-var contractAddress = '0xc5244053ecA508a11951400fc7Af28738Fd0ce77';
-var abi = [{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"}];
-var simpleStorageContract;
-var simpleStorage;
+
+  var coinbaseAddress = '';
+//var contractAddress = '0xc5244053ecA508a11951400fc7Af28738Fd0ce77';
+//var abi = [{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"}];
+//var simpleStorageContract;
+//var simpleStorage;
 
 window.addEventListener('load', function() {
 
@@ -57,11 +58,12 @@ window.addEventListener('load', function() {
 });
 
 function startApp() {
-  simpleStorageContract = web3.eth.contract(abi);
-  simpleStorage = simpleStorageContract.at(contractAddress);
-  document.getElementById('contractAddr').innerHTML = getLink(contractAddress);
+  //simpleStorageContract = web3.eth.contract(abi);
+  //simpleStorage = simpleStorageContract.at(contractAddress);
+  //document.getElementById('contractAddr').innerHTML = getLink(contractAddress);
   web3.eth.getAccounts(function(e,r){
     document.getElementById('accountAddr').innerHTML = getLink(r[0]);
+    coinbaseAddress = r[0].toString();
   });
 
   getValue();
@@ -72,10 +74,16 @@ function getLink(addr) {
 }
 
 function getValue() {
-  simpleStorage.get(function(e,r){
+  /*simpleStorage.get(function(e,r){
     document.getElementById('storedData').innerHTML=r.toNumber();
 
+  });*/
+
+  web3.eth.getBalance( coinbaseAddress, function(e,r){
+    document.getElementById('storedData').innerHTML=r.toNumber();
   });
+
+
   web3.eth.getBlockNumber(function(e,r){
     document.getElementById('lastBlock').innerHTML = r;
   });
